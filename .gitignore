@@ -1,3 +1,6 @@
 tiki_products/
 tiki_products_2/
 __pycache__/
+.venv/
+.pytest_cache/
+
