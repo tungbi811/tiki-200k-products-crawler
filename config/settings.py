@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-FOLDER = Path("data/tiki_products_2")
+FOLDER = Path("data/tiki_products")
 FOLDER.mkdir(exist_ok=True)
 
 FAILED_FILE = FOLDER / "failed_products.json"
