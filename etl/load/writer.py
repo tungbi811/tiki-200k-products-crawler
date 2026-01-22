@@ -1,7 +1,7 @@
 import json
 import asyncio
 from pathlib import Path
-from config import FOLDER, FAILED_FILE
+from config.settings import *
 
 failed_products = {}
 failed_lock = asyncio.Lock()
@@ -10,41 +10,9 @@ def write_json_sync(path: Path, payload: dict):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-
-def load_processed_ids():
-    processed = set()
-    for path in FOLDER.glob("batch_*.json"):
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                for p in data.get("products", []):
-                    if "id" in p:
-                        processed.add(p["id"])
-        except Exception as e:
-            print(f"[WARN] Failed to read {path}: {e}")
-    return processed
-
-
-def load_failed_products():
-    if not FAILED_FILE.exists():
-        return {}
-
-    try:
-        with open(FAILED_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            return {
-                int(status): list(map(int, ids))
-                for status, ids in data.get("by_status", {}).items()
-            }
-    except Exception as e:
-        print(f"[WARN] Failed to load failed_products.json: {e}")
-        return {}
-
-
 async def record_failed_product(product_id: int, status: int):
     async with failed_lock:
         failed_products.setdefault(status, []).append(product_id)
-
 
 async def save_failed_products():
     if not failed_products:

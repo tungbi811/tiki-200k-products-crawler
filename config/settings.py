@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-FOLDER = Path("tiki_products")
+FOLDER = Path("data/tiki_products_2")
 FOLDER.mkdir(exist_ok=True)
 
 FAILED_FILE = FOLDER / "failed_products.json"
@@ -9,8 +9,8 @@ FAILED_FILE = FOLDER / "failed_products.json"
 API = "https://api.tiki.vn/product-detail/api/v1/products/{}"
 
 CONCURRENCY = 4
-BATCH_SIZE = 4
-RATE_PER_SEC = 8
+BATCH_SIZE = 1000
+RATE_PER_SEC = 4
 
 MAX_429_RETRIES = 5
 BACKOFF_BASE_SECONDS = 1.0
@@ -23,4 +23,4 @@ HEADERS = {
     "Referer": "https://tiki.vn/"
 }
 
-product_list = pd.read_csv("product_list.csv")
+product_list = pd.read_csv("data/product_list.csv")

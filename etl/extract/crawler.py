@@ -1,25 +1,16 @@
 import asyncio
 import random
-import aiohttp
 
-from config import (
-    API,
-    HEADERS,
-    MAX_429_RETRIES,
-    BACKOFF_BASE_SECONDS,
-    BACKOFF_MAX_SECONDS,
-)
-from exceptions import TooManyRequests
-from storage import record_failed_product
-from rate_limiter import RateLimiter
+from config.settings import *
+from utils.exceptions import TooManyRequests
+from etl.load.writer import record_failed_product
+from utils.rate_limiter import RateLimiter
 
 rate_limiter = None
-
 
 def init_rate_limiter(rate_per_sec: int):
     global rate_limiter
     rate_limiter = RateLimiter(rate_per_sec)
-
 
 async def _backoff_sleep(attempt: int):
     """

@@ -1,6 +1,6 @@
 import asyncio
-from api import fetch_product
-from normalizer import normalize_product
+from etl.extract.crawler import fetch_product
+from etl.transform.normalizer import normalize_product
 
 async def process_batch(product_ids, session, sem):
     tasks = [fetch_product(session, pid, sem) for pid in product_ids]
