@@ -8,9 +8,9 @@ FAILED_FILE = FOLDER / "failed_products.json"
 
 API = "https://api.tiki.vn/product-detail/api/v1/products/{}"
 
-CONCURRENCY = 25
+CONCURRENCY = 4
 BATCH_SIZE = 1000
-RATE_PER_SEC = 100
+RATE_PER_SEC = 4
 
 MAX_429_RETRIES = 5
 BACKOFF_BASE_SECONDS = 1.0
