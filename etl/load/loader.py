@@ -29,27 +29,3 @@ def load_failed_products():
     except Exception as e:
         print(f"[WARN] Failed to load failed_products.json: {e}")
         return {}
-    
-def load_batch(filepath):
-    product_list = []
-    image_list = []
-
-    with open(filepath, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    for p in data.get("products", []):
-        product_list.append([
-            p["id"],
-            p["name"],
-            p["url_key"],
-            p["price"],
-            p["description"],
-        ])
-
-        for image in p.get("images", []):
-            image_list.append([
-                p["id"],
-                image
-            ])
-
-    return product_list, image_list

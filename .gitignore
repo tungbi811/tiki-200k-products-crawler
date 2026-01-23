@@ -3,4 +3,4 @@ tiki_products_2/
 __pycache__/
 .venv/
 .pytest_cache/
-database.ini
+
